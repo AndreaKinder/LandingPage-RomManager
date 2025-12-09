@@ -1,0 +1,1210 @@
+---
+import { translations, type Language } from "../i18n/translations";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang = "es" } = Astro.props;
+const t = translations[lang];
+---
+
+<div class="min-h-screen bg-purple-950 relative overflow-hidden">
+  <style is:global>
+    @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+    .pixel-font {
+      font-family: "Press Start 2P", cursive;
+      line-height: 1.6;
+    }
+
+    .retro-font {
+      font-family: "VT323", monospace;
+      line-height: 1.2;
+    }
+
+    /* CRT Scanlines Effect */
+    .crt-scanlines::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 999;
+      animation: scanline 8s linear infinite;
+    }
+
+    @keyframes scanline {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(10px);
+      }
+    }
+
+    /* CRT Screen Glow */
+    .crt-glow {
+      box-shadow:
+        inset 0 0 80px rgba(168, 85, 247, 0.2),
+        0 0 40px rgba(168, 85, 247, 0.3);
+    }
+
+    /* Pixel Perfect Borders */
+    .pixel-border {
+      border: 4px solid;
+      border-image: url("data:image/svg+xml,%3Csvg width='12' height='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h4v4H0zM8 0h4v4H8zM0 8h4v4H0zM8 8h4v4H8z' fill='%23a855f7'/%3E%3C/svg%3E")
+        4;
+      image-rendering: pixelated;
+    }
+
+    /* Chunky Shadow */
+    .pixel-shadow {
+      box-shadow:
+        4px 0 0 #a855f7,
+        0 4px 0 #a855f7,
+        4px 4px 0 #a855f7,
+        8px 4px 0 rgba(168, 85, 247, 0.6),
+        4px 8px 0 rgba(168, 85, 247, 0.6),
+        8px 8px 0 rgba(168, 85, 247, 0.4);
+    }
+
+    /* Blink Animation */
+    @keyframes blink {
+      0%,
+      49% {
+        opacity: 1;
+      }
+      50%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .blink {
+      animation: blink 1s infinite;
+    }
+
+    /* Grid Background */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(168, 85, 247, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168, 85, 247, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    /* 8-bit style button */
+    .btn-8bit {
+      clip-path: polygon(
+        4px 0,
+        calc(100% - 4px) 0,
+        100% 4px,
+        100% calc(100% - 4px),
+        calc(100% - 4px) 100%,
+        4px 100%,
+        0 calc(100% - 4px),
+        0 4px
+      );
+      transition: all 0.1s;
+    }
+
+    .btn-8bit:hover {
+      transform: translate(2px, 2px);
+    }
+
+    .btn-8bit:active {
+      transform: translate(4px, 4px);
+    }
+
+    /* Pixel art style icons */
+    .pixel-icon {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+
+    /* Glitch effect */
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        transform: translate(-2px, -2px);
+      }
+      60% {
+        transform: translate(2px, 2px);
+      }
+      80% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    /* NES cartridge style */
+    .cartridge {
+      background: linear-gradient(135deg, #2d2d44 0%, #1a1a2e 100%);
+      border-top: 8px solid #6b7280;
+      border-bottom: 4px solid #111;
+      position: relative;
+    }
+
+    .cartridge::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 20%;
+      right: 20%;
+      height: 4px;
+      background: #9ca3af;
+    }
+
+    .lang-dropdown {
+      position: relative;
+    }
+
+    .lang-dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 0.5rem;
+      min-width: 120px;
+      background: #1a1a2e;
+      border: 4px solid #a855f7;
+      border-radius: 0.25rem;
+      z-index: 1000;
+    }
+
+    .lang-dropdown-content.open {
+      display: block;
+    }
+
+    .lang-option {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #d1d5db;
+      text-decoration: none;
+      transition: all 0.2s;
+      border-bottom: 2px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .lang-option:last-child {
+      border-bottom: none;
+    }
+
+    .lang-option:hover {
+      background: rgba(168, 85, 247, 0.3);
+      color: white;
+    }
+
+    .lang-option.active {
+      background: rgba(168, 85, 247, 0.5);
+      color: white;
+    }
+
+    #mobile-menu {
+      display: none;
+    }
+
+    #mobile-menu.open {
+      display: block;
+    }
+  </style>
+
+  <!-- CRT Scanlines Overlay -->
+  <div class="crt-scanlines"></div>
+
+  <!-- Grid Background -->
+  <div class="fixed inset-0 grid-bg opacity-30"></div>
+
+  <!-- Navigation -->
+  <nav
+    class="fixed top-0 w-full bg-[#1a1a2e]/95 backdrop-blur-md z-50 border-b-4 border-purple-500"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <div class="flex items-center space-x-3">
+          <!-- Power LED -->
+          <div class="flex items-center space-x-2">
+            <div
+              id="power-led"
+              class="w-3 h-3 rounded-full bg-green-400 transition-colors duration-100 shadow-lg shadow-green-400"
+            >
+            </div>
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded flex items-center justify-center pixel-shadow"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-6 h-6 text-white"
+                ><line x1="6" x2="10" y1="12" y2="12"></line><line
+                  x1="8"
+                  x2="8"
+                  y1="10"
+                  y2="14"></line><line x1="15" x2="15.01" y1="13" y2="13"
+                ></line><line x1="18" x2="18.01" y1="11" y2="11"></line><rect
+                  width="20"
+                  height="12"
+                  x="2"
+                  y="6"
+                  rx="2"></rect></svg
+              >
+            </div>
+          </div>
+          <div>
+            <span
+              class="text-2xl font-bold text-white block drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+              >ROM Manager</span
+            >
+            <span class="text-[10px] text-purple-300 retro-font"
+              >v0.1.0-alpha</span
+            >
+          </div>
+          <span class="text-xs bg-yellow-400 text-black px-2 py-1 pixel-font">
+            ALPHA
+          </span>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-6">
+          <a
+            href="#features"
+            class="text-gray-300 hover:text-purple-400 transition retro-font text-xl"
+            >{t.nav.features}</a
+          >
+          <a
+            href="#community"
+            class="text-gray-300 hover:text-purple-400 transition retro-font text-xl"
+            >{t.nav.community}</a
+          >
+
+          <!-- Language Selector -->
+          <div class="lang-dropdown" id="lang-dropdown">
+            <button
+              id="lang-dropdown-btn"
+              class="flex items-center space-x-2 text-gray-300 hover:text-purple-400 transition retro-font text-xl"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><circle cx="12" cy="12" r="10"></circle><path
+                  d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
+                ></path><path d="M2 12h20"></path></svg
+              >
+              <span>{lang === "es" ? "ES" : "EN"}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+              >
+            </button>
+            <div class="lang-dropdown-content" id="lang-dropdown-content">
+              <a
+                href="/es"
+                class={`lang-option retro-font text-lg ${lang === "es" ? "active" : ""}`}
+                >🇪🇸 Español</a
+              >
+              <a
+                href="/en"
+                class={`lang-option retro-font text-lg ${lang === "en" ? "active" : ""}`}
+                >🇬🇧 English</a
+              >
+            </div>
+          </div>
+
+          <a
+            href="https://github.com/AndreaKinder/RomsManager"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-3 rounded pixel-font text-xs btn-8bit"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+              ></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg
+            >
+            <span>{t.nav.github}</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white">
+          <svg
+            id="menu-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><line x1="4" x2="20" y1="12" y2="12"></line><line
+              x1="4"
+              x2="20"
+              y1="6"
+              y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg
+          >
+          <svg
+            id="close-icon"
+            class="hidden"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+          >
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="md:hidden bg-[#1a1a2e] border-t-2 border-purple-500"
+    >
+      <div class="px-4 py-4 space-y-3">
+        <a
+          href="#features"
+          class="block text-gray-300 hover:text-purple-400 transition retro-font text-xl"
+          >{t.nav.features}</a
+        >
+        <a
+          href="#community"
+          class="block text-gray-300 hover:text-purple-400 transition retro-font text-xl"
+          >{t.nav.community}</a
+        >
+
+        <!-- Mobile Language Selector -->
+        <div class="flex gap-2">
+          <a
+            href="/es"
+            class={`flex-1 text-center py-2 px-4 rounded retro-font text-lg border-2 ${lang === "es" ? "bg-purple-600 text-white border-purple-500" : "bg-slate-800 text-gray-300 border-purple-500/30"}`}
+          >
+            🇪🇸 ES
+          </a>
+          <a
+            href="/en"
+            class={`flex-1 text-center py-2 px-4 rounded retro-font text-lg border-2 ${lang === "en" ? "bg-purple-600 text-white border-purple-500" : "bg-slate-800 text-gray-300 border-purple-500/30"}`}
+          >
+            🇬🇧 EN
+          </a>
+        </div>
+
+        <a
+          href="https://github.com/AndreaKinder/RomsManager"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded w-full pixel-font text-xs"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path
+              d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+            ></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg
+          >
+          <span>{t.nav.github}</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-7xl mx-auto text-center relative z-10">
+      <!-- INSERT COIN Badge -->
+      <div
+        class="inline-flex items-center space-x-2 bg-purple-900/50 px-6 py-3 rounded border-4 border-purple-500 mb-8 cartridge"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-yellow-400 blink"
+          ><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+          ></polygon></svg
+        >
+        <span class="text-purple-300 text-sm font-medium pixel-font"
+          >{t.hero.badge}</span
+        >
+      </div>
+
+      <h1
+        class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+      >
+        {t.hero.title1}<br />
+        <span
+          class="text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text drop-shadow-[0_0_30px_rgba(236,72,153,0.8)]"
+        >
+          {t.hero.title2}
+        </span>
+      </h1>
+
+      <p
+        class="text-2xl retro-font text-gray-200 mb-10 max-w-3xl mx-auto leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+      >
+        {t.hero.description}
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8"
+      >
+        <a
+          href="https://github.com/AndreaKinder/RomsManager"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center space-x-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-8 py-4 rounded text-sm pixel-font transition btn-8bit pixel-shadow"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path
+              d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+            ></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg
+          >
+          <span>{t.hero.startGame}</span>
+        </a>
+        <a
+          href="https://github.com/AndreaKinder/RomsManager/releases"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center space-x-3 bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded text-sm pixel-font transition border-4 border-purple-500 btn-8bit"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+            ></path><polyline points="7 10 12 15 17 10"></polyline><line
+              x1="12"
+              x2="12"
+              y1="15"
+              y2="3"></line></svg
+          >
+          <span>{t.hero.download}</span>
+        </a>
+      </div>
+
+      <p
+        class="text-sm retro-font text-yellow-400 flex items-center justify-center gap-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path
+            d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"
+          ></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg
+        >
+        {t.hero.alphaWarning}
+      </p>
+    </div>
+
+    <!-- Screenshot Preview with CRT effect -->
+    <div class="max-w-6xl mx-auto mt-16 relative z-10">
+      <div
+        class="relative rounded-lg overflow-hidden border-8 border-gray-700 bg-black crt-glow"
+      >
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent"
+        >
+        </div>
+        <div
+          class="aspect-video flex items-center justify-center p-8 bg-gradient-to-br from-purple-900/30 to-slate-900 relative"
+        >
+          <!-- Fake CRT grid -->
+          <div
+            class="absolute inset-0 opacity-10"
+            style="background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(168, 85, 247, 0.3) 2px, rgba(168, 85, 247, 0.3) 4px);"
+          >
+          </div>
+          <div class="text-center space-y-6 relative z-10">
+            <div
+              class="w-32 h-32 mx-auto bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg flex items-center justify-center pixel-shadow"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="80"
+                height="80"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-white"
+                ><path d="m16 6 4 14"></path><path d="M12 6v14"></path><path
+                  d="M8 8v12"></path><path d="M4 4v16"></path></svg
+              >
+            </div>
+            <p
+              class="text-gray-300 text-2xl retro-font drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+            >
+              {t.hero.libraryManager}
+            </p>
+            <div class="flex justify-center gap-2">
+              <div class="w-3 h-3 bg-purple-400 rounded-full blink"></div>
+              <div
+                class="w-3 h-3 bg-purple-400 rounded-full blink"
+                style="animation-delay: 0.3s;"
+              >
+              </div>
+              <div
+                class="w-3 h-3 bg-purple-400 rounded-full blink"
+                style="animation-delay: 0.6s;"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy Section - NES Cartridge Style -->
+  <section
+    class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent border-t-4 border-b-4 border-purple-500/30"
+  >
+    <div class="max-w-4xl mx-auto text-center">
+      <div
+        class="inline-block mb-8 p-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg pixel-shadow"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-white"
+          ><path
+            d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+          ></path><path d="m8 13 4-7 4 7"></path><path d="M9.1 11h5.7"
+          ></path></svg
+        >
+      </div>
+      <h2
+        class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+      >
+        {t.philosophy.title1}<br />{t.philosophy.title2}
+      </h2>
+      <p
+        class="text-2xl retro-font text-gray-200 leading-tight max-w-3xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+      >
+        {t.philosophy.description}
+      </p>
+    </div>
+  </section>
+
+  <!-- Features Section - 8-bit style cards -->
+  <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <div
+          class="inline-block px-6 py-2 bg-purple-600 text-white pixel-font text-xs mb-6 pixel-shadow"
+        >
+          {t.features.badge}
+        </div>
+        <h2
+          class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+        >
+          {t.features.title1}<br />{t.features.title2}
+        </h2>
+        <p
+          class="text-2xl retro-font text-gray-200 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+        >
+          {t.features.subtitle}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          t.features.items.map((feature, idx) => {
+            const colors = [
+              "from-blue-600 to-blue-800",
+              "from-green-600 to-green-800",
+              "from-yellow-600 to-yellow-800",
+              "from-pink-600 to-pink-800",
+              "from-purple-600 to-purple-800",
+              "from-red-600 to-red-800",
+            ];
+            const icons = [
+              '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></svg>',
+              '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>',
+              '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>',
+              '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+              '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>',
+              '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>',
+            ];
+            return (
+              <div class="bg-[#1a1a2e]/90 p-8 rounded-lg border-4 border-purple-500/30 hover:border-purple-500 transition backdrop-blur-sm cartridge group shadow-xl">
+                <div
+                  class={`bg-gradient-to-br ${colors[idx]} w-16 h-16 rounded flex items-center justify-center mb-6 pixel-shadow group-hover:scale-110 transition-transform shadow-lg`}
+                  set:html={icons[idx]}
+                ></div>
+                <h3 class="text-2xl font-bold text-white mb-4 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  {feature.title}
+                </h3>
+                <p class="text-gray-300 leading-relaxed text-lg drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  {feature.description}
+                </p>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop Focus Section -->
+  <section
+    class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent border-t-4 border-b-4 border-purple-500/30"
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <div
+            class="inline-block px-4 py-2 bg-green-600 text-white pixel-font text-xs mb-6 pixel-shadow"
+          >
+            {t.desktop.badge}
+          </div>
+          <h2
+            class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+          >
+            {t.desktop.title1}<br />{t.desktop.title2}
+          </h2>
+          <p
+            class="text-2xl retro-font text-gray-200 mb-8 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+          >
+            {t.desktop.description}
+          </p>
+          <div class="space-y-4">
+            <div
+              class="flex items-start space-x-3 bg-[#1a1a2e]/70 p-4 rounded border-2 border-purple-500/20 shadow-lg"
+            >
+              <div
+                class="bg-gradient-to-br from-purple-600 to-purple-800 p-3 rounded pixel-shadow flex-shrink-0 shadow-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-white"
+                  ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                  ></path><polyline points="7 10 12 15 17 10"></polyline><line
+                    x1="12"
+                    x2="12"
+                    y1="15"
+                    y2="3"></line></svg
+                >
+              </div>
+              <div>
+                <h4
+                  class="text-white font-bold mb-2 text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >
+                  {t.desktop.simple.title}
+                </h4>
+                <p
+                  class="text-gray-300 text-base leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >
+                  {t.desktop.simple.description}
+                </p>
+              </div>
+            </div>
+            <div
+              class="flex items-start space-x-3 bg-[#1a1a2e]/70 p-4 rounded border-2 border-purple-500/20 shadow-lg"
+            >
+              <div
+                class="bg-gradient-to-br from-purple-600 to-purple-800 p-3 rounded pixel-shadow flex-shrink-0 shadow-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-white"
+                  ><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path
+                    d="M3 5V19A9 3 0 0 0 21 19V5"></path><path
+                    d="M3 12A9 3 0 0 0 21 12"></path></svg
+                >
+              </div>
+              <div>
+                <h4
+                  class="text-white font-bold mb-2 text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >
+                  {t.desktop.local.title}
+                </h4>
+                <p
+                  class="text-gray-300 text-base leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >
+                  {t.desktop.local.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-[#1a1a2e]/90 rounded-lg p-8 border-4 border-purple-500/50 cartridge pixel-shadow shadow-xl"
+        >
+          <div class="text-center mb-6">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-purple-300 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+              ><path d="m7.5 4.27 9 5.15"></path><path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              ></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"
+              ></path></svg
+            >
+            <h3
+              class="text-2xl font-bold text-white mb-2 pixel-font text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            >
+              {t.desktop.available}
+            </h3>
+          </div>
+          <div class="space-y-4">
+            <div
+              class="flex items-center space-x-4 bg-purple-900/40 p-4 rounded border-2 border-purple-500/30 shadow-lg"
+            >
+              <span class="text-3xl">🪟</span>
+              <span
+                class="text-gray-200 text-xl retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >{t.desktop.platforms.windows}</span
+              >
+            </div>
+            <div
+              class="flex items-center space-x-4 bg-purple-900/40 p-4 rounded border-2 border-purple-500/30 shadow-lg"
+            >
+              <span class="text-3xl">🍎</span>
+              <span
+                class="text-gray-200 text-xl retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >{t.desktop.platforms.macos}</span
+              >
+            </div>
+            <div
+              class="flex items-center space-x-4 bg-purple-900/40 p-4 rounded border-2 border-purple-500/30 shadow-lg"
+            >
+              <span class="text-3xl">🐧</span>
+              <span
+                class="text-gray-200 text-xl retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >{t.desktop.platforms.linux}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alpha Warning - Game Over Style -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <div
+        class="bg-yellow-500/15 border-8 border-yellow-500 rounded-lg p-8 cartridge relative overflow-hidden shadow-2xl"
+      >
+        <div
+          class="absolute top-4 right-4 pixel-font text-yellow-400 text-xs blink drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"
+        >
+          {t.alpha.warning}
+        </div>
+        <div class="flex items-start space-x-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="64"
+            height="64"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-yellow-400 flex-shrink-0 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]"
+            ><path
+              d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"
+            ></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg
+          >
+          <div>
+            <h3
+              class="text-3xl font-bold text-white mb-6 pixel-font text-base leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            >
+              {t.alpha.title}
+            </h3>
+            <p
+              class="text-gray-200 mb-6 text-xl retro-font leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            >
+              {t.alpha.description}
+            </p>
+            <ul class="space-y-3 text-gray-300">
+              {
+                t.alpha.items.map((item) => (
+                  <li class="flex items-start space-x-3">
+                    <span class="text-yellow-400 text-2xl leading-none drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
+                      ▸
+                    </span>
+                    <span class="text-lg retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                      {item}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Section - Arcade Style -->
+  <section
+    id="community"
+    class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent border-t-4 border-b-4 border-purple-500/30"
+  >
+    <div class="max-w-4xl mx-auto text-center">
+      <div
+        class="inline-block px-6 py-2 bg-purple-600 text-white pixel-font text-xs mb-6 pixel-shadow"
+      >
+        {t.community.badge}
+      </div>
+      <h2
+        class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+      >
+        {t.community.title}
+      </h2>
+      <p
+        class="text-2xl retro-font text-gray-200 mb-12 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+      >
+        {t.community.description}
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <a
+          href="https://github.com/AndreaKinder/RomsManager"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-[#1a1a2e]/90 p-8 rounded-lg border-4 border-purple-500/30 hover:border-purple-500 transition cartridge pixel-shadow group shadow-xl"
+        >
+          <div
+            class="bg-gradient-to-br from-purple-600 to-purple-800 w-16 h-16 rounded mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-white"
+              ><path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+              ></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg
+            >
+          </div>
+          <h3
+            class="text-2xl font-bold text-white mb-3 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          >
+            {t.community.contribute.title}
+          </h3>
+          <p
+            class="text-gray-300 text-lg retro-font leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          >
+            {t.community.contribute.description}
+          </p>
+        </a>
+        <a
+          href="https://github.com/AndreaKinder/RomsManager"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-[#1a1a2e]/90 p-8 rounded-lg border-4 border-purple-500/30 hover:border-purple-500 transition cartridge pixel-shadow group shadow-xl"
+        >
+          <div
+            class="bg-gradient-to-br from-yellow-600 to-yellow-800 w-16 h-16 rounded mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-white"
+              ><polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+              ></polygon></svg
+            >
+          </div>
+          <h3
+            class="text-2xl font-bold text-white mb-3 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          >
+            {t.community.star.title}
+          </h3>
+          <p
+            class="text-gray-300 text-lg retro-font leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          >
+            {t.community.star.description}
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer - Console Style -->
+  <footer
+    class="py-12 px-4 sm:px-6 lg:px-8 border-t-8 border-purple-500 bg-[#0a0a14]"
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center space-x-3 mb-4 md:mb-0">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded flex items-center justify-center pixel-shadow"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-white"
+              ><line x1="6" x2="10" y1="12" y2="12"></line><line
+                x1="8"
+                x2="8"
+                y1="10"
+                y2="14"></line><line x1="15" x2="15.01" y1="13" y2="13"
+              ></line><line x1="18" x2="18.01" y1="11" y2="11"></line><rect
+                width="20"
+                height="12"
+                x="2"
+                y="6"
+                rx="2"></rect></svg
+            >
+          </div>
+          <div>
+            <span
+              class="text-white font-semibold block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              >ROM Manager</span
+            >
+            <span
+              class="text-purple-300 text-xs retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              >{t.footer.subtitle}</span
+            >
+          </div>
+          <span class="text-xs bg-yellow-400 text-black px-2 py-1 pixel-font">
+            ALPHA
+          </span>
+        </div>
+
+        <div class="flex items-center space-x-6">
+          <a
+            href="https://github.com/AndreaKinder/RomsManager"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-purple-400 transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+              ></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg
+            >
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <p
+          class="text-gray-400 text-base retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+        >
+          {t.footer.copyright}
+        </p>
+        <p
+          class="text-gray-500 text-sm retro-font mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+        >
+          {t.footer.createdBy}
+          <a
+            href="https://github.com/AndreaKinder"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-purple-400 hover:text-purple-300 transition"
+            >Andrea Kinder</a
+          >
+        </p>
+        <p
+          class="mt-3 text-gray-500 retro-font text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+        >
+          {t.footer.gameOver}
+        </p>
+        <p
+          class="text-purple-300 pixel-font text-xs mt-3 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]"
+        >
+          {t.footer.pressStart}
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Power LED blink animation
+  const powerLed = document.getElementById("power-led");
+  if (powerLed) {
+    setInterval(() => {
+      powerLed.classList.toggle("bg-green-400");
+      powerLed.classList.toggle("bg-green-900");
+      powerLed.classList.toggle("shadow-green-400");
+    }, 1000);
+  }
+
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuIcon = document.getElementById("menu-icon");
+  const closeIcon = document.getElementById("close-icon");
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+      menuIcon?.classList.toggle("hidden");
+      closeIcon?.classList.toggle("hidden");
+    });
+  }
+
+  // Language dropdown toggle
+  const langDropdownBtn = document.getElementById("lang-dropdown-btn");
+  const langDropdownContent = document.getElementById("lang-dropdown-content");
+  const langDropdown = document.getElementById("lang-dropdown");
+
+  if (langDropdownBtn && langDropdownContent) {
+    langDropdownBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      langDropdownContent.classList.toggle("open");
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+      if (langDropdown && !langDropdown.contains(e.target as Node)) {
+        langDropdownContent.classList.remove("open");
+      }
+    });
+  }
+</script>
