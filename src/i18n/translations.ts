@@ -21,7 +21,7 @@ export const translations = {
     philosophy: {
       title1: 'Mas que un gestor,',
       title2: 'una biblioteca personal',
-      description: 'Para los verdaderos coleccionistas del gaming retro. ROM Manager te permite catalogar y preservar tu colección digital con la misma dedicación que un coleccionista de cartuchos físicos. Organiza por consolas, mantén un registro detallado de cada juego, y sincroniza tu biblioteca entre tu PC y tus dispositivos portátiles como Galic SD.',
+      description: 'Para los verdaderos coleccionistas del gaming retro. ROM Manager te permite catalogar y preservar tu colección digital con la misma dedicación que un coleccionista de cartuchos físicos. Organiza por consolas, mantén un registro detallado de cada juego, y sincroniza tu biblioteca entre tu PC y tus dispositivos portátiles como consolas anbernic.',
     },
     features: {
       badge: 'PLAYER 1 SELECT',
@@ -34,7 +34,7 @@ export const translations = {
           description: 'Visualiza tu coleccion con caratulas, organizada por consolas. Cada juego con su ficha detallada.',
         },
         {
-          title: 'Sincronizacion Galic SD',
+          title: 'Sincronizacion consolas anbernic',
           description: 'Importa y exporta tu coleccion a dispositivos portatiles. Manten sincronizada tu biblioteca entre PC y handheld.',
         },
         {
@@ -128,7 +128,7 @@ export const translations = {
     philosophy: {
       title1: 'More than a manager,',
       title2: 'a personal library',
-      description: 'For true retro gaming collectors. ROM Manager allows you to catalog and preserve your digital collection with the same dedication as a physical cartridge collector. Organize by consoles, keep detailed records of each game, and sync your library between your PC and portable devices like Galic SD.',
+      description: 'For true retro gaming collectors. ROM Manager allows you to catalog and preserve your digital collection with the same dedication as a physical cartridge collector. Organize by consoles, keep detailed records of each game, and sync your library between your PC and portable devices like anbernic consoles.',
     },
     features: {
       badge: 'PLAYER 1 SELECT',
@@ -141,7 +141,7 @@ export const translations = {
           description: 'View your collection with cover art, organized by consoles. Each game with its detailed file.',
         },
         {
-          title: 'Galic SD sync',
+          title: 'Anbernic consoles sync',
           description: 'Import and export your collection to portable devices. Keep your library synced between PC and handheld.',
         },
         {
