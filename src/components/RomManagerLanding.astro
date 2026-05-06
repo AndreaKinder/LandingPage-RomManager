@@ -52,11 +52,9 @@ const t = translations[lang];
       }
     }
 
-    /* CRT Screen Glow */
+    /* CRT Screen Box */
     .crt-glow {
-      box-shadow:
-        inset 0 0 80px rgba(168, 85, 247, 0.2),
-        0 0 40px rgba(168, 85, 247, 0.3);
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
     }
 
     /* Pixel Perfect Borders */
@@ -233,7 +231,7 @@ const t = translations[lang];
 
   <!-- Navigation -->
   <nav
-    class="fixed top-0 w-full bg-[#1a1a2e]/95 backdrop-blur-md z-50 border-b-4 border-purple-500"
+    class="fixed top-0 w-full bg-[#1a1a2e] z-50 border-b-4 border-purple-500"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
@@ -246,7 +244,7 @@ const t = translations[lang];
             >
             </div>
             <div
-              class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded flex items-center justify-center pixel-shadow"
+              class="w-10 h-10 bg-purple-500 rounded flex items-center justify-center pixel-shadow"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -275,7 +273,7 @@ const t = translations[lang];
           </div>
           <div>
             <span
-              class="text-2xl font-bold text-white block drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+              class="text-2xl font-bold text-white block [text-shadow:2px_2px_0_#a855f7]"
               >ROM Manager</span
             >
             <span class="text-[10px] text-purple-300 retro-font"
@@ -351,7 +349,7 @@ const t = translations[lang];
             href="https://github.com/AndreaKinder/RomsManager"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-3 rounded pixel-font text-xs btn-8bit"
+            class="flex items-center space-x-2 bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded pixel-font text-xs btn-8bit"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -445,7 +443,7 @@ const t = translations[lang];
           href="https://github.com/AndreaKinder/RomsManager"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded w-full pixel-font text-xs"
+          class="flex items-center space-x-2 bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded w-full pixel-font text-xs"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -494,18 +492,18 @@ const t = translations[lang];
       </div>
 
       <h1
-        class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+        class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight [text-shadow:4px_4px_0_#a855f7]"
       >
         {t.hero.title1}<br />
         <span
-          class="text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text drop-shadow-[0_0_30px_rgba(236,72,153,0.8)]"
+          class="text-[#ff77ff] [text-shadow:4px_4px_0_#db2777]"
         >
           {t.hero.title2}
         </span>
       </h1>
 
       <p
-        class="text-2xl retro-font text-gray-200 mb-10 max-w-3xl mx-auto leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+        class="text-2xl retro-font text-gray-200 mb-10 max-w-3xl mx-auto leading-tight [text-shadow:2px_2px_0_#000]"
       >
         {t.hero.description}
       </p>
@@ -517,7 +515,7 @@ const t = translations[lang];
           href="https://github.com/AndreaKinder/RomsManager"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center space-x-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-8 py-4 rounded text-sm pixel-font transition btn-8bit pixel-shadow"
+          class="flex items-center space-x-3 bg-purple-600 hover:bg-purple-500 text-white px-8 py-4 rounded text-sm pixel-font transition btn-8bit pixel-shadow"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -563,7 +561,7 @@ const t = translations[lang];
       </div>
 
       <p
-        class="text-sm retro-font text-yellow-400 flex items-center justify-center gap-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+        class="text-sm retro-font text-yellow-400 flex items-center justify-center gap-2 [text-shadow:2px_2px_0_#000]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -586,14 +584,14 @@ const t = translations[lang];
     <!-- Screenshot Preview with CRT effect -->
     <div class="max-w-6xl mx-auto mt-16 relative z-10">
       <div
-        class="relative rounded-lg overflow-hidden border-8 border-gray-700 bg-black crt-glow"
+        class="relative rounded-none overflow-hidden border-8 border-gray-700 bg-black crt-glow"
       >
         <div
-          class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent"
+          class="absolute inset-0 bg-[#0a0a10]"
         >
         </div>
         <div
-          class="aspect-video flex items-center justify-center p-8 bg-gradient-to-br from-purple-900/30 to-slate-900 relative"
+          class="aspect-video flex items-center justify-center p-8 bg-[#0a0a10] relative"
         >
           <!-- Fake CRT grid -->
           <div
@@ -603,7 +601,7 @@ const t = translations[lang];
           </div>
           <div class="text-center space-y-6 relative z-10">
             <div
-              class="w-32 h-32 mx-auto bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg flex items-center justify-center pixel-shadow"
+              class="w-32 h-32 mx-auto bg-purple-600 rounded-lg flex items-center justify-center pixel-shadow"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -646,11 +644,11 @@ const t = translations[lang];
 
   <!-- Philosophy Section - NES Cartridge Style -->
   <section
-    class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent border-t-4 border-b-4 border-purple-500/30"
+    class="py-20 px-4 sm:px-6 lg:px-8 bg-[#131320] border-t-4 border-b-4 border-purple-500/30"
   >
     <div class="max-w-4xl mx-auto text-center">
       <div
-        class="inline-block mb-8 p-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg pixel-shadow"
+        class="inline-block mb-8 p-4 bg-purple-600 rounded-lg pixel-shadow"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -670,12 +668,12 @@ const t = translations[lang];
         >
       </div>
       <h2
-        class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+        class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight [text-shadow:4px_4px_0_#a855f7]"
       >
         {t.philosophy.title1}<br />{t.philosophy.title2}
       </h2>
       <p
-        class="text-2xl retro-font text-gray-200 leading-tight max-w-3xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+        class="text-2xl retro-font text-gray-200 leading-tight max-w-3xl mx-auto [text-shadow:2px_2px_0_#000]"
       >
         {t.philosophy.description}
       </p>
@@ -692,12 +690,12 @@ const t = translations[lang];
           {t.features.badge}
         </div>
         <h2
-          class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+          class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight [text-shadow:4px_4px_0_#a855f7]"
         >
           {t.features.title1}<br />{t.features.title2}
         </h2>
         <p
-          class="text-2xl retro-font text-gray-200 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+          class="text-2xl retro-font text-gray-200 leading-tight [text-shadow:2px_2px_0_#000]"
         >
           {t.features.subtitle}
         </p>
@@ -707,12 +705,12 @@ const t = translations[lang];
         {
           t.features.items.map((feature, idx) => {
             const colors = [
-              "from-blue-600 to-blue-800",
-              "from-green-600 to-green-800",
-              "from-yellow-600 to-yellow-800",
-              "from-pink-600 to-pink-800",
-              "from-purple-600 to-purple-800",
-              "from-red-600 to-red-800",
+              "bg-blue-600",
+              "bg-green-600",
+              "bg-yellow-600",
+              "bg-pink-600",
+              "bg-purple-600",
+              "bg-red-600",
             ];
             const icons = [
               '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></svg>',
@@ -723,15 +721,15 @@ const t = translations[lang];
               '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>',
             ];
             return (
-              <div class="bg-[#1a1a2e]/90 p-8 rounded-lg border-4 border-purple-500/30 hover:border-purple-500 transition backdrop-blur-sm cartridge group shadow-xl">
+              <div class="bg-[#1a1a2e] p-8 rounded-none pixel-border hover:border-purple-500 transition  cartridge group pixel-shadow">
                 <div
-                  class={`bg-gradient-to-br ${colors[idx]} w-16 h-16 rounded flex items-center justify-center mb-6 pixel-shadow group-hover:scale-110 transition-transform shadow-lg`}
+                  class={`${colors[idx]} w-16 h-16 rounded flex items-center justify-center mb-6 pixel-shadow group-hover:scale-110 transition-transform shadow-lg`}
                   set:html={icons[idx]}
                 ></div>
-                <h3 class="text-2xl font-bold text-white mb-4 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <h3 class="text-2xl font-bold text-white mb-4 leading-tight [text-shadow:2px_2px_0_#000]">
                   {feature.title}
                 </h3>
-                <p class="text-gray-300 leading-relaxed text-lg drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <p class="text-gray-300 leading-relaxed text-lg [text-shadow:2px_2px_0_#000]">
                   {feature.description}
                 </p>
               </div>
@@ -744,7 +742,7 @@ const t = translations[lang];
 
   <!-- Desktop Focus Section -->
   <section
-    class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent border-t-4 border-b-4 border-purple-500/30"
+    class="py-20 px-4 sm:px-6 lg:px-8 bg-[#131320] border-t-4 border-b-4 border-purple-500/30"
   >
     <div class="max-w-7xl mx-auto">
       <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -755,12 +753,12 @@ const t = translations[lang];
             {t.desktop.badge}
           </div>
           <h2
-            class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+            class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight [text-shadow:4px_4px_0_#a855f7]"
           >
             {t.desktop.title1}<br />{t.desktop.title2}
           </h2>
           <p
-            class="text-2xl retro-font text-gray-200 mb-8 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+            class="text-2xl retro-font text-gray-200 mb-8 leading-tight [text-shadow:2px_2px_0_#000]"
           >
             {t.desktop.description}
           </p>
@@ -769,7 +767,7 @@ const t = translations[lang];
               class="flex items-start space-x-3 bg-[#1a1a2e]/70 p-4 rounded border-2 border-purple-500/20 shadow-lg"
             >
               <div
-                class="bg-gradient-to-br from-purple-600 to-purple-800 p-3 rounded pixel-shadow flex-shrink-0 shadow-lg"
+                class="bg-purple-600 p-3 rounded pixel-shadow flex-shrink-0 shadow-lg"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -792,12 +790,12 @@ const t = translations[lang];
               </div>
               <div>
                 <h4
-                  class="text-white font-bold mb-2 text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                  class="text-white font-bold mb-2 text-xl [text-shadow:2px_2px_0_#000]"
                 >
                   {t.desktop.simple.title}
                 </h4>
                 <p
-                  class="text-gray-300 text-base leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                  class="text-gray-300 text-base leading-relaxed [text-shadow:2px_2px_0_#000]"
                 >
                   {t.desktop.simple.description}
                 </p>
@@ -807,7 +805,7 @@ const t = translations[lang];
               class="flex items-start space-x-3 bg-[#1a1a2e]/70 p-4 rounded border-2 border-purple-500/20 shadow-lg"
             >
               <div
-                class="bg-gradient-to-br from-purple-600 to-purple-800 p-3 rounded pixel-shadow flex-shrink-0 shadow-lg"
+                class="bg-purple-600 p-3 rounded pixel-shadow flex-shrink-0 shadow-lg"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -827,12 +825,12 @@ const t = translations[lang];
               </div>
               <div>
                 <h4
-                  class="text-white font-bold mb-2 text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                  class="text-white font-bold mb-2 text-xl [text-shadow:2px_2px_0_#000]"
                 >
                   {t.desktop.local.title}
                 </h4>
                 <p
-                  class="text-gray-300 text-base leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                  class="text-gray-300 text-base leading-relaxed [text-shadow:2px_2px_0_#000]"
                 >
                   {t.desktop.local.description}
                 </p>
@@ -841,7 +839,7 @@ const t = translations[lang];
           </div>
         </div>
         <div
-          class="bg-[#1a1a2e]/90 rounded-lg p-8 border-4 border-purple-500/50 cartridge pixel-shadow shadow-xl"
+          class="bg-[#1a1a2e] rounded-none p-8 pixel-border cartridge pixel-shadow"
         >
           <div class="text-center mb-6">
             <svg
@@ -854,14 +852,14 @@ const t = translations[lang];
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-purple-300 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+              class="text-purple-300 mx-auto mb-4 [text-shadow:2px_2px_0_#a855f7]"
               ><path d="m7.5 4.27 9 5.15"></path><path
                 d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
               ></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"
               ></path></svg
             >
             <h3
-              class="text-2xl font-bold text-white mb-2 pixel-font text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              class="text-2xl font-bold text-white mb-2 pixel-font text-sm [text-shadow:2px_2px_0_#000]"
             >
               {t.desktop.available}
             </h3>
@@ -872,7 +870,7 @@ const t = translations[lang];
             >
               <span class="text-3xl">🪟</span>
               <span
-                class="text-gray-200 text-xl retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                class="text-gray-200 text-xl retro-font [text-shadow:2px_2px_0_#000]"
                 >{t.desktop.platforms.windows}</span
               >
             </div>
@@ -881,7 +879,7 @@ const t = translations[lang];
             >
               <span class="text-3xl">🍎</span>
               <span
-                class="text-gray-200 text-xl retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                class="text-gray-200 text-xl retro-font [text-shadow:2px_2px_0_#000]"
                 >{t.desktop.platforms.macos}</span
               >
             </div>
@@ -890,7 +888,7 @@ const t = translations[lang];
             >
               <span class="text-3xl">🐧</span>
               <span
-                class="text-gray-200 text-xl retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                class="text-gray-200 text-xl retro-font [text-shadow:2px_2px_0_#000]"
                 >{t.desktop.platforms.linux}</span
               >
             </div>
@@ -904,10 +902,10 @@ const t = translations[lang];
   <section class="py-20 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto">
       <div
-        class="bg-yellow-500/15 border-8 border-yellow-500 rounded-lg p-8 cartridge relative overflow-hidden shadow-2xl"
+        class="bg-yellow-500/15 border-8 border-yellow-500 rounded-none p-8 cartridge relative overflow-hidden"
       >
         <div
-          class="absolute top-4 right-4 pixel-font text-yellow-400 text-xs blink drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"
+          class="absolute top-4 right-4 pixel-font text-yellow-400 text-xs blink [text-shadow:2px_2px_0_#ca8a04]"
         >
           {t.alpha.warning}
         </div>
@@ -929,12 +927,12 @@ const t = translations[lang];
           >
           <div>
             <h3
-              class="text-3xl font-bold text-white mb-6 pixel-font text-base leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              class="text-3xl font-bold text-white mb-6 pixel-font text-base leading-relaxed [text-shadow:2px_2px_0_#000]"
             >
               {t.alpha.title}
             </h3>
             <p
-              class="text-gray-200 mb-6 text-xl retro-font leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              class="text-gray-200 mb-6 text-xl retro-font leading-tight [text-shadow:2px_2px_0_#000]"
             >
               {t.alpha.description}
             </p>
@@ -942,10 +940,10 @@ const t = translations[lang];
               {
                 t.alpha.items.map((item) => (
                   <li class="flex items-start space-x-3">
-                    <span class="text-yellow-400 text-2xl leading-none drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
+                    <span class="text-yellow-400 text-2xl leading-none [text-shadow:2px_2px_0_#ca8a04]">
                       ▸
                     </span>
-                    <span class="text-lg retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    <span class="text-lg retro-font [text-shadow:2px_2px_0_#000]">
                       {item}
                     </span>
                   </li>
@@ -961,7 +959,7 @@ const t = translations[lang];
   <!-- Community Section - Arcade Style -->
   <section
     id="community"
-    class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent border-t-4 border-b-4 border-purple-500/30"
+    class="py-20 px-4 sm:px-6 lg:px-8 bg-[#131320] border-t-4 border-b-4 border-purple-500/30"
   >
     <div class="max-w-4xl mx-auto text-center">
       <div
@@ -970,12 +968,12 @@ const t = translations[lang];
         {t.community.badge}
       </div>
       <h2
-        class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+        class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight [text-shadow:4px_4px_0_#a855f7]"
       >
         {t.community.title}
       </h2>
       <p
-        class="text-2xl retro-font text-gray-200 mb-12 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+        class="text-2xl retro-font text-gray-200 mb-12 leading-tight [text-shadow:2px_2px_0_#000]"
       >
         {t.community.description}
       </p>
@@ -985,10 +983,10 @@ const t = translations[lang];
           href="https://github.com/AndreaKinder/RomsManager"
           target="_blank"
           rel="noopener noreferrer"
-          class="bg-[#1a1a2e]/90 p-8 rounded-lg border-4 border-purple-500/30 hover:border-purple-500 transition cartridge pixel-shadow group shadow-xl"
+          class="bg-[#1a1a2e] p-8 rounded-none pixel-border hover:border-purple-500 transition cartridge pixel-shadow group"
         >
           <div
-            class="bg-gradient-to-br from-purple-600 to-purple-800 w-16 h-16 rounded mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+            class="bg-purple-600 w-16 h-16 rounded mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -1007,12 +1005,12 @@ const t = translations[lang];
             >
           </div>
           <h3
-            class="text-2xl font-bold text-white mb-3 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            class="text-2xl font-bold text-white mb-3 leading-tight [text-shadow:2px_2px_0_#000]"
           >
             {t.community.contribute.title}
           </h3>
           <p
-            class="text-gray-300 text-lg retro-font leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            class="text-gray-300 text-lg retro-font leading-tight [text-shadow:2px_2px_0_#000]"
           >
             {t.community.contribute.description}
           </p>
@@ -1021,10 +1019,10 @@ const t = translations[lang];
           href="https://github.com/AndreaKinder/RomsManager"
           target="_blank"
           rel="noopener noreferrer"
-          class="bg-[#1a1a2e]/90 p-8 rounded-lg border-4 border-purple-500/30 hover:border-purple-500 transition cartridge pixel-shadow group shadow-xl"
+          class="bg-[#1a1a2e] p-8 rounded-none pixel-border hover:border-purple-500 transition cartridge pixel-shadow group"
         >
           <div
-            class="bg-gradient-to-br from-yellow-600 to-yellow-800 w-16 h-16 rounded mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+            class="bg-yellow-500 w-16 h-16 rounded mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -1043,12 +1041,12 @@ const t = translations[lang];
             >
           </div>
           <h3
-            class="text-2xl font-bold text-white mb-3 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            class="text-2xl font-bold text-white mb-3 leading-tight [text-shadow:2px_2px_0_#000]"
           >
             {t.community.star.title}
           </h3>
           <p
-            class="text-gray-300 text-lg retro-font leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            class="text-gray-300 text-lg retro-font leading-tight [text-shadow:2px_2px_0_#000]"
           >
             {t.community.star.description}
           </p>
@@ -1065,7 +1063,7 @@ const t = translations[lang];
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div class="flex items-center space-x-3 mb-4 md:mb-0">
           <div
-            class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded flex items-center justify-center pixel-shadow"
+            class="w-10 h-10 bg-purple-600 rounded flex items-center justify-center pixel-shadow"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -1093,11 +1091,11 @@ const t = translations[lang];
           </div>
           <div>
             <span
-              class="text-white font-semibold block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              class="text-white font-semibold block [text-shadow:2px_2px_0_#000]"
               >ROM Manager</span
             >
             <span
-              class="text-purple-300 text-xs retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              class="text-purple-300 text-xs retro-font [text-shadow:2px_2px_0_#000]"
               >{t.footer.subtitle}</span
             >
           </div>
@@ -1133,12 +1131,12 @@ const t = translations[lang];
 
       <div class="mt-8 text-center">
         <p
-          class="text-gray-400 text-base retro-font drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          class="text-gray-400 text-base retro-font [text-shadow:2px_2px_0_#000]"
         >
           {t.footer.copyright}
         </p>
         <p
-          class="text-gray-500 text-sm retro-font mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          class="text-gray-500 text-sm retro-font mt-2 [text-shadow:2px_2px_0_#000]"
         >
           {t.footer.createdBy}
           <a
@@ -1150,7 +1148,7 @@ const t = translations[lang];
           >
         </p>
         <p
-          class="mt-3 text-gray-500 retro-font text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+          class="mt-3 text-gray-500 retro-font text-2xl [text-shadow:2px_2px_0_#000]"
         >
           {t.footer.gameOver}
         </p>
